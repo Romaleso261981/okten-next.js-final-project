@@ -1,4 +1,4 @@
-export type Recipes = {
+export type Recipe = {
   id: number;
   name: string;
   ingredients: string[];
@@ -18,8 +18,13 @@ export type Recipes = {
 };
 
 export type ApiResponse = {
-  recipes: Recipes[];
+  recipes: Recipe[];
   total: number;
   skip: number;
   limit: number;
+};
+
+export type Teg = {
+  id: number;
+  name: string;
 };

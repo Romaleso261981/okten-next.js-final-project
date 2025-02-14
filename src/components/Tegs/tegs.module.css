@@ -1,11 +1,11 @@
-.categories {
+.tegs {
   display: flex;
   height: 60px;
   gap: 24px;
   margin-bottom: 40px;
 }
 
-.category {
+.teg {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,4 +20,9 @@
   height: 100%;
   border-radius: 6px;
   font-weight: 700;
+}
+
+.name {
+  font-size: 16px;
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
 }

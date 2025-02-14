@@ -2,14 +2,18 @@ import React, { FC } from "react";
 import { Center } from "@mantine/core";
 
 import { pages } from "@/config";
-import { Categories } from "@/components/Categories/Categories";
-import { Container, MovieList, PaginationComponent } from "@/components";
-import { mockRecipes, tegs } from "@/constans/constans";
+import {
+  Container,
+  MovieList,
+  PaginationComponent,
+  TegsComponent
+} from "@/components";
+import { mockRecipes } from "@/constans/constans";
 
 import s from "./recipes.module.css";
 
 interface ListPageProps {
-  searchParams?: Record<string, string>;
+  searchParams: Record<string, string>;
 }
 
 export async function generateMetadata() {
@@ -19,25 +23,20 @@ export async function generateMetadata() {
   };
 }
 
-const Recipes
-: FC<ListPageProps> = async ({
-  searchParams
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) => {
-  const currentPage = Number(searchParams?.page) || 1;
+const Recipes: FC<ListPageProps> = async ({ searchParams }) => {
+  const currentPage = Number(searchParams.page) || 1;
   console.log(currentPage);
 
+  const total_pages = 100;
 
-const total_pages = 10;
+  const tegs = await fetch("https://dummyjson.com/recipes/tags").then(res =>
+    res.json()
+  );
 
   return (
     <Container>
       <section className={s.wrapper}>
-        <Categories categories={tegs.slice(0, 5)} />
+        <TegsComponent tegs={tegs.slice(0, 5)} />
         <h1>Trending now</h1>
         <MovieList recipes={mockRecipes.recipes} />
         <Center mt={30} mb={50}>
@@ -48,5 +47,4 @@ const total_pages = 10;
   );
 };
 
-export default Recipes
-;
+export default Recipes;
