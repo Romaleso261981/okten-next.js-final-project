@@ -7,9 +7,9 @@ import { RecipeDetails } from "@/utils/types";
 import ImageContainer from "@/components/ImageContainer/ImageContainer";
 
 interface DetailLayoutProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
   children: React.ReactNode;
 }
 
@@ -17,7 +17,7 @@ export default async function DetailLayout({
   params,
   children
 }: DetailLayoutProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const detailRecipe: RecipeDetails = await fetch(
     "https://dummyjson.com/recipes/1" + id
