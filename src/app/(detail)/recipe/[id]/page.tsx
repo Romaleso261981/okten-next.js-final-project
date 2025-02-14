@@ -6,13 +6,13 @@ import s from "./detail.module.css";
 import { RecipeDetails } from "@/utils/types";
 
 type DetailProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: DetailProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const recipe: RecipeDetails = await fetch(
     "https://dummyjson.com/recipes/1" + id
