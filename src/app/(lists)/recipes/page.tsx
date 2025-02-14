@@ -11,10 +11,6 @@ import {
 
 import s from "./recipes.module.css";
 
-interface ListPageProps {
-  searchParams: Record<string, string>;
-}
-
 export async function generateMetadata() {
   return {
     title: "All recipes",
@@ -22,10 +18,7 @@ export async function generateMetadata() {
   };
 }
 
-const Recipes: FC<ListPageProps> = async ({ searchParams }) => {
-  const currentPage = Number(searchParams.page) || 1;
-  console.log(currentPage);
-
+const Recipes: FC = async () => {
   const total_pages = 100;
 
   const tegs = await fetch("https://dummyjson.com/recipes/tags").then(res =>
