@@ -4,11 +4,10 @@ import { Center } from "@mantine/core";
 import { pages } from "@/config";
 import {
   Container,
-  MovieList,
   PaginationComponent,
+  RecipeList,
   TegsComponent
 } from "@/components";
-import { mockRecipes } from "@/constans/constans";
 
 import s from "./recipes.module.css";
 
@@ -33,12 +32,16 @@ const Recipes: FC<ListPageProps> = async ({ searchParams }) => {
     res.json()
   );
 
+  const { recipes } = await fetch("https://dummyjson.com/recipes").then(res =>
+    res.json()
+  );
+
   return (
     <Container>
       <section className={s.wrapper}>
         <TegsComponent tegs={tegs.slice(0, 5)} />
-        <h1>Trending now</h1>
-        <MovieList recipes={mockRecipes.recipes} />
+        <h1 className={s.title}>Trending now</h1>
+        <RecipeList recipes={recipes} />
         <Center mt={30} mb={50}>
           {total_pages > 0 && <PaginationComponent total={10} />}
         </Center>
