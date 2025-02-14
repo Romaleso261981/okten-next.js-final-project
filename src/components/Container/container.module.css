@@ -1,0 +1,8 @@
+.wrapper {
+  max-width: 1440px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  background-color: var(--mantine-color-body);
+}

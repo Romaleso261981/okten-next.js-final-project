@@ -1,0 +1,23 @@
+.categories {
+  display: flex;
+  height: 60px;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: light-dark(
+    var(--mantine-color-white-0),
+    var(--mantine-color-dark-9)
+  );
+  border: 1px solid #333;
+  box-shadow: 0 5px 10px 0
+    light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  font-weight: 700;
+}
