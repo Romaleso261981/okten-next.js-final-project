@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 import { Center } from "@mantine/core";
 
 import { pages } from "@/config";
@@ -32,7 +32,9 @@ const Recipes: FC = async () => {
   return (
     <Container>
       <section className={s.wrapper}>
-        <TegsComponent tegs={tegs.slice(0, 5)} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <TegsComponent tegs={tegs.slice(0, 5)} />
+        </Suspense>
         <h1 className={s.title}>Trending now</h1>
         <RecipeList recipes={recipes} />
         <Center mt={30} mb={50}>
