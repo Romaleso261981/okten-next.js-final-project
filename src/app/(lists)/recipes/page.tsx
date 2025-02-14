@@ -38,7 +38,9 @@ const Recipes: FC = async () => {
         <h1 className={s.title}>Trending now</h1>
         <RecipeList recipes={recipes} />
         <Center mt={30} mb={50}>
-          {total_pages > 0 && <PaginationComponent total={10} />}
+          <Suspense fallback={<div>Loading...</div>}>
+            {total_pages > 0 && <PaginationComponent total={10} />}
+          </Suspense>
         </Center>
       </section>
     </Container>
