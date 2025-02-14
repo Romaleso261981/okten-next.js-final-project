@@ -16,3 +16,10 @@ export type Recipes = {
   reviewCount: number;
   mealType: string[];
 };
+
+export type ApiResponse = {
+  recipes: Recipes[];
+  total: number;
+  skip: number;
+  limit: number;
+};
