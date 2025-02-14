@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import { Center } from "@mantine/core";
 
 import { pages } from "@/config";
-import s from "./movies.module.css";
 import { Categories } from "@/components/Categories/Categories";
 import { Container, MovieList, PaginationComponent } from "@/components";
 import { mockRecipes, tegs } from "@/constans/constans";
+
+import s from "./recipes.module.css";
 
 interface ListPageProps {
   searchParams?: Record<string, string>;
@@ -13,12 +14,13 @@ interface ListPageProps {
 
 export async function generateMetadata() {
   return {
-    title: "Discover Movies",
-    description: pages.movie.discover.description
+    title: "All recipes",
+    description: pages.recipes.description
   };
 }
 
-const Discover: FC<ListPageProps> = async ({
+const Recipes
+: FC<ListPageProps> = async ({
   searchParams
 }: {
   searchParams?: {
@@ -46,4 +48,5 @@ const total_pages = 10;
   );
 };
 
-export default Discover;
+export default Recipes
+;

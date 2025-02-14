@@ -3,13 +3,14 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 // core styles are required for all packages
 import '@mantine/core/styles.css';
+import { createTheme, MantineProvider } from "@mantine/core";
 
-// other css files are required only if
-// you are using components from the corresponding package
-// import '@mantine/dates/styles.css';
-// import '@mantine/dropzone/styles.css';
-// import '@mantine/code-highlight/styles.css';
-// ...
+
+const theme = createTheme(
+  {
+    /** Put your mantine theme override here */
+  }
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +37,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <MantineProvider theme={theme}>
         {children}
+        </MantineProvider>
       </body>
     </html>
   );

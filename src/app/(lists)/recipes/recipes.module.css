@@ -1,0 +1,5 @@
+.wrapper {
+  padding: 6rem;
+  min-height: 100vh;
+  background-color: var(--mantine-color-body);
+}

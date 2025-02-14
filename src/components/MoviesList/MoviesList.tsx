@@ -25,6 +25,8 @@ export const MovieList: React.FC<MovieListProps> = ({ recipes }) => {
               className={s.img}
               src={recipe.image ? recipe.image : defaultImg}
               alt={recipe.name}
+              width={500}
+              height={750}
             />
           </Link>
           <h3>
