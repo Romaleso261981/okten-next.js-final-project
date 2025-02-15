@@ -4,3 +4,4 @@ export * from "./RecipesList/RecipesList";
 export * from "./PaginationComponent/PaginationComponent";
 export * from "./Tegs/Tegs";
 export * from "./ImageContainer/ImageContainer";
+export * from "./UserInfo/UserInfo";
