@@ -1,9 +1,11 @@
-import { Flex, Text, Title } from "@mantine/core";
+import { Flex, Group, Text, Title } from "@mantine/core";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 
 import s from "./detail.module.css";
 import { RecipeDetails } from "@/utils/types";
+import { StarsRatingComponent } from "@/components/StarsRatingComponent/StarsRatingComponent";
+import { TegsComponent } from "@/components";
 
 type DetailProps = {
   params: Promise<{
@@ -18,7 +20,9 @@ export default async function Page({ params }: DetailProps) {
     "https://dummyjson.com/recipes/1" + id
   ).then(res => res.json());
 
-  console.log(recipe);
+  const tegs = await fetch("https://dummyjson.com/recipes/tags").then(res =>
+    res.json()
+  );
 
   return (
     <div className={s.detailContainer}>
@@ -36,13 +40,12 @@ export default async function Page({ params }: DetailProps) {
           {recipe.name}
         </Title>
         <Text>{`Status: ${recipe.rating}`}</Text>
-        {/* <Group>
-                <Button>Video</Button>
-                <StarsRatingComponent reating={vote_average} />
-              </Group>
-              <Flex>
-                <Categories categories={genres} />
-              </Flex> */}
+        <Group>
+          <StarsRatingComponent reating={recipe.rating} />
+        </Group>
+        <Suspense fallback={<div>Loading...</div>}>
+          <TegsComponent tegs={tegs.slice(0, 5)} />
+        </Suspense>
       </Flex>
     </div>
   );

@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { Header } from "@/components/Header/Header";
 import { Metadata } from "next";
+import { UserProvider } from "@/contexts/userContext";
 
 const theme = createTheme(
   {
@@ -24,10 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MantineProvider theme={theme}>
-          <Header />
-          {children}
-        </MantineProvider>
+        <UserProvider>
+          <MantineProvider theme={theme}>
+            <Header />
+            {children}
+          </MantineProvider>
+        </UserProvider>
       </body>
     </html>
   );
