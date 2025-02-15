@@ -1,4 +1,4 @@
-import { Flex, Group, Text, Title } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -21,33 +21,28 @@ export default async function Page({ params }: DetailProps) {
   console.log(recipe);
 
   return (
-    <div>
-      <Flex className={s.wrapper}>
-        <Flex className={s.descriptionWrapper}>
-          <Flex className={s.posterWrapper}>
-            <Image
-              src={recipe.image}
-              width={300}
-              height={450}
-              alt={recipe.name}
-            />
-          </Flex>
-          <Flex>
-            <Flex className={s.description}>
-              <Title>
-                {recipe.name}
-              </Title>
-              <Text>{`Status: ${recipe.rating}`}</Text>
-              <Group>
-                {/* <Button>Video</Button> */}
-                {/* <StarsRatingComponent reating={vote_average} /> */}
+    <div className={s.detailContainer}>
+      <Flex className={s.posterWrapper}>
+        <Image
+          src={recipe.image}
+          width={300}
+          height={450}
+          alt={recipe.name}
+          className={s.poster}
+        />
+      </Flex>
+      <Flex className={s.description}>
+        <Title>
+          {recipe.name}
+        </Title>
+        <Text>{`Status: ${recipe.rating}`}</Text>
+        {/* <Group>
+                <Button>Video</Button>
+                <StarsRatingComponent reating={vote_average} />
               </Group>
-              {/* <Flex>
+              <Flex>
                 <Categories categories={genres} />
               </Flex> */}
-            </Flex>
-          </Flex>
-        </Flex>
       </Flex>
     </div>
   );

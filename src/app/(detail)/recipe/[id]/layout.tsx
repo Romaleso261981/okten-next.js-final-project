@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 
 import "../../../globals.css";
-import { Container } from "@/components";
 import { RecipeDetails } from "@/utils/types";
 import ImageContainer from "@/components/ImageContainer/ImageContainer";
 
@@ -28,13 +27,19 @@ export default async function DetailLayout({
   const src = detailRecipe ? detailRecipe.image : "";
 
   return (
-    <Container>
+    <div>
       <ImageContainer>
-        <Image src={src} width={1400} height={550} alt="Backdrop" />
+        <Image
+          src={src}
+          width={1800}
+          height={550}
+          alt="Backdrop"
+          objectFit="cover"
+        />
       </ImageContainer>
       <div>
         {children}
       </div>
-    </Container>
+    </div>
   );
 }

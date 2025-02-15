@@ -21,6 +21,12 @@
   align-items: center;
 }
 
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column;
+  }
+}
+
 .logo {
   display: block;
   width: 100px;
