@@ -19,7 +19,7 @@ export default async function DetailLayout({
   const { id } = await params;
 
   const detailRecipe: RecipeDetails = await fetch(
-    "https://dummyjson.com/recipes/1" + id
+    "https://dummyjson.com/recipes/" + id
   ).then(res => res.json());
 
   if (!id) return notFound();

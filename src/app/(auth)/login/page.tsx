@@ -2,7 +2,7 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import s from "./login.module.css";
-import { User } from "@/utils/types";
+import { ShortUser } from "@/utils/types";
 import { UserContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 
@@ -26,9 +26,9 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const user: Pick<User, "email" | "name"> = {
-      email,
-      name
+    const user: ShortUser = {
+      lastName: email,
+      firstName: name
     };
     setUser(user);
     setIsLoggedIn(true);

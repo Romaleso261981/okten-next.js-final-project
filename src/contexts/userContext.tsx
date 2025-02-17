@@ -1,14 +1,14 @@
 "use client";
 
-import { User } from "@/utils/types";
+import { ShortUser } from "@/utils/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 type UserContextType = {
-  user: User;
+  user: ShortUser;
   isLoggedIn: boolean;
   saveToLocalStorage: <T>(key: string, value: T) => void;
   setIsLoggedIn: (value: boolean) => void;
-  setUser: (value: User) => void;
+  setUser: (value: ShortUser) => void;
   logout: () => void;
 };
 
@@ -42,10 +42,10 @@ export const UserContext = createContext({} as UserContextType);
 
 export function UserProvider({ children }: CardsProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<Pick<User, "email" | "name">>({} as User);
+  const [user, setUser] = useState<ShortUser>({} as ShortUser);
 
   useEffect(() => {
-    const storedUser = loadFromLocalStorage<User>("user");
+    const storedUser = loadFromLocalStorage<ShortUser>("user");
     if (storedUser) {
       setUser(storedUser);
       setIsLoggedIn(true);
@@ -53,7 +53,7 @@ export function UserProvider({ children }: CardsProviderProps) {
   }, []);
 
   const logout = () => {
-    setUser({} as User);
+    setUser({} as ShortUser);
     setIsLoggedIn(false);
     localStorage.removeItem("user");
   };

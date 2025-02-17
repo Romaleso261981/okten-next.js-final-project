@@ -108,3 +108,5 @@ export type User = {
   username: string;
   weight: number;
 };
+
+export type ShortUser = Pick<User, "lastName" | "firstName">;
