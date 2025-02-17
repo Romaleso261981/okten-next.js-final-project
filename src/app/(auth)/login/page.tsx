@@ -26,7 +26,7 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const user: User = {
+    const user: Pick<User, "email" | "name"> = {
       email,
       name
     };

@@ -1,28 +1,19 @@
-"use client";
+import { Pagination } from "@mantine/core";
 
-import { Group } from "@mantine/core";
-import { usePathname, useSearchParams } from "next/navigation";
-import { FC } from "react";
-
-type PaginationComponentProps = {
-  total?: number;
+type Props = {
+  total: number;
+  setSkip: (skip: number) => void;
+  limit: number;
 };
 
-export const PaginationComponent: FC<PaginationComponentProps> = () => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+const PaginationComponent = ({ total, setSkip, limit }: Props) => {
+  const totalPages = Math.ceil(total / limit);
 
-  const createPageURL = (pageNumber: string | number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
+  const handlePageChange = (page: number) => {
+    setSkip((page - 1) * limit);
   };
 
-  return (
-    <Group>
-      <a href={createPageURL(currentPage - 1)}>Prev</a>
-      <a href={createPageURL(currentPage + 1)}>Next</a>
-    </Group>
-  );
+  return <Pagination total={totalPages} onChange={handlePageChange} />;
 };
+
+export default PaginationComponent;

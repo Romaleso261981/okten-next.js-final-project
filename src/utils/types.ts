@@ -49,6 +49,62 @@ export type RecipeDetails = {
 };
 
 export type User = {
-  name: string;
+  id?: number;
+  lastName: string;
+  firstName: string;
+  address: {
+    address: string;
+    city: string;
+    state: string;
+    stateCode: string;
+    postalCode: string;
+  };
+  age: number;
+  bank: {
+    cardExpire: string;
+    cardNumber: string;
+    cardType: string;
+    currency: string;
+    iban: string;
+  };
+  birthDate: string;
+  bloodGroup: string;
+  company: {
+    department: string;
+    name: string;
+    title: string;
+    address: {
+      address: string;
+      city: string;
+      state: string;
+      stateCode: string;
+      postalCode: string;
+    };
+  };
+  crypto: {
+    coin: string;
+    wallet: string;
+    network: string;
+  };
+  ein: string;
   email: string;
+  eyeColor: string;
+  gender: string;
+  hair: {
+    color: string;
+    type: string;
+  };
+  height: number;
+  image: string;
+  ip: string;
+  macAddress: string;
+  maidenName: string;
+  password: string;
+  phone: string;
+  role: string;
+  ssn: string;
+  university: string;
+  userAgent: string;
+  username: string;
+  weight: number;
 };

@@ -17,7 +17,7 @@ export default async function Page({ params }: DetailProps) {
   const { id } = await params;
 
   const recipe: RecipeDetails = await fetch(
-    "https://dummyjson.com/recipes/1" + id
+    "https://dummyjson.com/recipes/" + id
   ).then(res => res.json());
 
   const tegs = await fetch("https://dummyjson.com/recipes/tags").then(res =>

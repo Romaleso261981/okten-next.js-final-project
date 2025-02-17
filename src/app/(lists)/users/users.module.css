@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 6rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mantine-color-body);
+}
+
+.title{
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}

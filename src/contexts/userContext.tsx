@@ -42,7 +42,7 @@ export const UserContext = createContext({} as UserContextType);
 
 export function UserProvider({ children }: CardsProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<Pick<User, "email" | "name">>({} as User);
 
   useEffect(() => {
     const storedUser = loadFromLocalStorage<User>("user");
