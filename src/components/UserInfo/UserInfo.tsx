@@ -2,13 +2,16 @@
 
 import { UnstyledButton, Group, Avatar, Text, Flex } from "@mantine/core";
 import classes from "./userInfo.module.css";
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { UserContext } from "@/contexts/userContext";
+import { ShortUser } from "@/utils/types";
+import { LogOut } from "lucide-react";
 
-export const UserInfo = () => {
-  const { logout, user } = useContext(UserContext);
-
-  console.log(user);
+type props = {
+  user: ShortUser;
+};
+export const UserInfo: FC<props> = ({ user }) => {
+  const { logout } = useContext(UserContext);
 
   return (
     <div className={classes.userWrapper}>
@@ -21,18 +24,12 @@ export const UserInfo = () => {
 
           <Flex direction="column" style={{ flex: 1 }}>
             <Text size="sm" fw={500}>
-              Harriette Spoonlicker
-            </Text>
-
-            <Text c="dimmed" size="xs">
-              hspoonlicker@outlook.com
+              {user.firstName}
             </Text>
           </Flex>
+          <LogOut onClick={logout} />
         </Group>
       </UnstyledButton>
-      <button onClick={logout} className={classes.logOut}>
-        LogOut
-      </button>
     </div>
   );
 };

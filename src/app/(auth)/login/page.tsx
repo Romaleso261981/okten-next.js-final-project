@@ -1,38 +1,51 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import s from "./login.module.css";
-import { ShortUser } from "@/utils/types";
 import { UserContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 
+import Cookies from "js-cookie";
+import { ShortUser } from "@/utils/types";
+
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const { setUser, isLoggedIn, setIsLoggedIn, saveToLocalStorage } = useContext(
-    UserContext
-  );
+  const [username, setUsername] = useState("");
+  const { login } = useContext(UserContext);
   const router = useRouter();
 
-  useEffect(
-    () => {
-      if (isLoggedIn) {
-        router.push("/recipes");
-      }
-    },
-    [isLoggedIn, router]
-  );
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const user: ShortUser = {
-      lastName: email,
-      firstName: name
+    const user: { username: string; password: string } = {
+      username: username,
+      password: password
     };
-    setUser(user);
-    setIsLoggedIn(true);
-    saveToLocalStorage("user", user);
+    try {
+      const response = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("data", data);
+
+        const newUser: ShortUser = {
+          lastName: data.lastName,
+          firstName: data.firstName
+        };
+        Cookies.set("authToken", data.accessToken, { expires: 7 });
+        login(newUser);
+        router.push("/");
+      } else {
+        console.error("Помилка реєстрації");
+      }
+    } catch (error) {
+      console.error("Помилка з'єднання", error);
+    }
   };
 
   return (
@@ -40,23 +53,14 @@ export default function LoginPage() {
       <h2 className={s.title}>Login</h2>
       <form onSubmit={handleSubmit} className={s.form}>
         <div className={s.inputGroup}>
-          <label className={s.label}>Name:</label>
+          <label className={s.label}>username:</label>
           <input
             type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
             required
             className={s.input}
-          />
-        </div>
-        <div className={s.inputGroup}>
-          <label className={s.label}>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            className={s.input}
+            autoComplete="username"
           />
         </div>
         <div className={s.inputGroup}>
@@ -67,6 +71,7 @@ export default function LoginPage() {
             onChange={e => setPassword(e.target.value)}
             required
             className={s.input}
+            autoComplete="current-password"
           />
         </div>
         <button type="submit" className={s.button}>

@@ -5,9 +5,9 @@ import { Center } from "@mantine/core";
 import { Container, RecipeList, TegsComponent } from "@/components";
 import s from "./recipes.module.css";
 import { RecipeDetails } from "@/utils/types";
+import PaginationComponent from "@/components/PaginationComponent/PaginationComponent";
 import { UserContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
-import PaginationComponent from "@/components/PaginationComponent/PaginationComponent";
 
 type ReturnFetchData = {
   tegs: string[];
@@ -23,9 +23,21 @@ const getData = async ({
   limit: number;
 }): Promise<ReturnFetchData> => {
   try {
+    const token = process.env.NEXT_PUBLIC_API_TOKEN;
+
     const [tegsResponse, recipesResponse] = await Promise.all([
-      fetch("https://dummyjson.com/recipes/tags"),
-      fetch(`https://dummyjson.com/recipes?limit=${limit}&skip=${skip}`)
+      fetch("https://dummyjson.com/auth/recipes/tags", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        }
+      }),
+      fetch(`https://dummyjson.com/auth/recipes?limit=${limit}&skip=${skip}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        }
+      })
     ]);
 
     if (!tegsResponse.ok || !recipesResponse.ok) {
@@ -49,15 +61,15 @@ const Recipes: FC = () => {
   const [skip, setSkip] = useState(0);
   const limit = 10;
   const router = useRouter();
-  const { isLoggedIn } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(
     () => {
-      if (isLoggedIn === false) {
+      if (user === null) {
         router.push("/login");
       }
     },
-    [isLoggedIn, router]
+    [user, router]
   );
 
   useEffect(

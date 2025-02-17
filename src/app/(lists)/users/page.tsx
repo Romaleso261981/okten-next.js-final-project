@@ -1,6 +1,7 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import { Center } from "@mantine/core";
 import { User } from "@/utils/types";
 import { Container } from "@/components";
@@ -8,6 +9,8 @@ import PaginationComponent from "@/components/PaginationComponent/PaginationComp
 import { UsersList } from "@/components/UsersList/UsersList";
 
 import s from "./users.module.css";
+import { UserContext } from "@/contexts/userContext";
+import { useRouter } from "next/navigation";
 
 type ReturnFetchData = {
   users: User[];
@@ -22,7 +25,8 @@ const getData = async ({
   limit: number;
 }): Promise<ReturnFetchData> => {
   try {
-    const token = process.env.NEXT_PUBLIC_API_TOKEN;
+    // const token = process.env.NEXT_PUBLIC_API_TOKEN;
+    const token = Cookies.get("authToken"); // Отримання токена з кукі
     const allUsersResponse = await fetch(
       `https://dummyjson.com/auth/users?limit=${limit}&skip=${skip}`,
       {
@@ -54,6 +58,9 @@ const Users: FC = () => {
   const [skip, setSkip] = useState(0);
   const limit = 10;
 
+  const { user } = useContext(UserContext);
+  const router = useRouter();
+
   useEffect(
     () => {
       const fetchData = async () => {
@@ -65,6 +72,17 @@ const Users: FC = () => {
       fetchData();
     },
     [skip]
+  );
+
+  console.log("user", user);
+
+  useEffect(
+    () => {
+      if (user === null) {
+        router.push("/login");
+      }
+    },
+    [user, router]
   );
 
   if (!users.length) {

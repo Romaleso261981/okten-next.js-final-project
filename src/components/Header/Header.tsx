@@ -3,10 +3,11 @@
 import { Flex, Group, Title } from "@mantine/core";
 
 import s from "./Header.module.css";
+import Link from "next/link";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/userContext";
-import Link from "next/link";
 import { UserInfo } from "../UserInfo/UserInfo";
+import { LogIn } from "lucide-react";
 
 const links = [
   { id: 1, link: "/recipes", label: "Recipes" },
@@ -15,8 +16,6 @@ const links = [
 ];
 
 export const Header = () => {
-  const { isLoggedIn } = useContext(UserContext);
-
   const items = links.map(link =>
     <li key={link.id} className={s.itemItem}>
       <a href={link.link} className={s.itemLink}>
@@ -25,21 +24,23 @@ export const Header = () => {
     </li>
   );
 
+  const { user } = useContext(UserContext);
+
   return (
     <header className={s.header}>
       <div className={s.inner}>
         <Group>
           <Title>Dummyjson.com</Title>
         </Group>
-        {isLoggedIn &&
+        {user &&
           <nav className={s.navigation}>
             {items}
           </nav>}
         <Flex gap={40}>
-          {isLoggedIn
-            ? <UserInfo />
+          {user
+            ? <UserInfo user={user} />
             : <Link href="/login" className={s.itemLink}>
-                Login
+                <LogIn />
               </Link>}
           {/* <Search /> */}
           {/* {mounted === true ? <ColorSwitch /> : null} */}

@@ -13,8 +13,6 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
     return <div>Loading...</div>;
   }
 
-  console.log("users", users);
-
   return (
     <ul className={s.list}>
       {users.map(user =>
