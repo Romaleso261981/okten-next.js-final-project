@@ -5,7 +5,7 @@ import { User } from "@/utils/types";
 import { UsersTable } from "@/components/UsersTable/UsersTable";
 import { Center, Container, Pagination } from "@mantine/core";
 import Loader from "@/components/Loader/Loader";
-import { LIMIT } from "@/constans/constans";
+import { BASE_URL, LIMIT } from "@/constans/constans";
 
 const Page: FC = () => {
   const [activePage, setPage] = useState(1);
@@ -17,8 +17,7 @@ const Page: FC = () => {
       const fetchUsers = async () => {
         try {
           const res = await fetch(
-            `http://localhost:3000/api/users?limit=${LIMIT}&skip=${activePage *
-              10}`
+            `${BASE_URL}/api/users?limit=${LIMIT}&skip=${activePage * 10}`
           );
           if (!res.ok) throw new Error("Failed to fetch users");
 

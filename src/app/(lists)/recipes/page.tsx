@@ -5,7 +5,7 @@ import React, { FC, useEffect, useState } from "react";
 import Recipes from "@/components/Recipes/Recipes";
 import Loader from "@/components/Loader/Loader";
 import { RecipeDetails } from "@/utils/types";
-import { LIMIT } from "@/constans/constans";
+import { BASE_URL, LIMIT } from "@/constans/constans";
 import { Center, Container, Pagination } from "@mantine/core";
 
 const Page: FC = () => {
@@ -18,8 +18,7 @@ const Page: FC = () => {
       const fetchUsers = async () => {
         try {
           const res = await fetch(
-            `http://localhost:3000/api/recipes?limit=${LIMIT}&skip=${activePage *
-              10}`
+            `${BASE_URL}/api/recipes?limit=${LIMIT}&skip=${activePage * 10}`
           );
           if (!res.ok) throw new Error("Failed to fetch users");
 
