@@ -1,14 +1,2 @@
 export const LIMIT = 10;
-export const API_URL = "http://localhost:3000";
-export const API_URL_USERS = `${API_URL}/users/api`;
-export const API_URL_LOGIN = `${API_URL}/auth/login`;
-export const API_URL_REGISTER = `${API_URL}/auth/register`;
-export const API_URL_LOGOUT = `${API_URL}/auth/logout`;
-export const API_URL_ME = `${API_URL}/auth/me`;
-export const API_URL_REFRESH = `${API_URL}/auth/refresh`;
-export const API_URL_USERS_LIST = `${API_URL}/users/list`;
-export const API_URL_USERS_CREATE = `${API_URL}/users/create`;
-export const API_URL_USERS_UPDATE = `${API_URL}/users/update`;
-export const API_URL_USERS_DELETE = `${API_URL}/users/delete`;
-export const API_URL_USERS_GET = `${API_URL}/users/get`;
-export const API_URL_USERS_SEARCH = `${API_URL}/users/search`;
+export const BASE_URL = "https://dummyjson.com";

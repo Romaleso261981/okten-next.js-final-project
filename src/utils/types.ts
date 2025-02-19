@@ -116,4 +116,9 @@ export type LoginResponse = {
   firstName: string;
 };
 
+export type RecipesResponse = {
+  recipes: Recipe[];
+  total: number;
+};
+
 export type ShortUser = Pick<User, "lastName" | "firstName">;

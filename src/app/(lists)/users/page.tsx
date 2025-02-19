@@ -17,7 +17,7 @@ const Page: FC = () => {
       const fetchUsers = async () => {
         try {
           const res = await fetch(
-            `http://localhost:3000/users/api?limit=${LIMIT}&skip=${activePage *
+            `http://localhost:3000/api/users?limit=${LIMIT}&skip=${activePage *
               10}`
           );
           if (!res.ok) throw new Error("Failed to fetch users");
@@ -41,7 +41,7 @@ const Page: FC = () => {
     <Container pt={20} pb={80}>
       <UsersTable users={users} />
       <Center mt={20}>
-        <Pagination total={total} onChange={setPage} />
+        <Pagination total={total / 10} onChange={setPage} />
       </Center>
     </Container>
   );

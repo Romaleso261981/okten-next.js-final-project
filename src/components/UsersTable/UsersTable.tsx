@@ -6,8 +6,10 @@ import {
   Badge,
   Group,
   Table,
-  Text
+  Text,
+  useMantineTheme
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { User } from "@/utils/types";
 
 const data = [
@@ -64,35 +66,46 @@ const jobColors: Record<string, string> = {
 };
 
 export function UsersTable({ users }: { users: User[] }) {
-  const rows = users.map(item =>
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+
+  const rows = users.map(item => (
     <Table.Tr key={item.id}>
       <Table.Td>
         <Group gap="sm">
           <Avatar size={30} src={data[getRandomNumber()].avatar} radius={30} />
-          <Text fz="sm" fw={500}>
-            {item.firstName}
-          </Text>
-          <Text fz="sm" fw={500}>
-            {item.lastName}
-          </Text>
+          <div>
+            <Text fz="sm" fw={500}>
+              {item.firstName} {item.lastName}
+            </Text>
+            {isMobile && (
+              <>
+                <Text fz="xs">{item.email}</Text>
+                <Text fz="xs">{item.phone}</Text>
+              </>
+            )}
+          </div>
         </Group>
       </Table.Td>
 
-      <Table.Td>
-        <Badge color={jobColors[data[0].job.toLowerCase()]} variant="light">
-          {item.age}
-        </Badge>
-      </Table.Td>
-      <Table.Td>
-        <Anchor component="button" size="sm">
-          {item.email}
-        </Anchor>
-      </Table.Td>
-      <Table.Td>
-        <Text fz="sm">
-          {item.phone}
-        </Text>
-      </Table.Td>
+      {!isMobile && (
+        <>
+          <Table.Td>
+            <Badge color={jobColors[data[0].job.toLowerCase()]} variant="light">
+              {item.age}
+            </Badge>
+          </Table.Td>
+          <Table.Td>
+            <Anchor component="button" size="sm">
+              {item.email}
+            </Anchor>
+          </Table.Td>
+          <Table.Td>
+            <Text fz="sm">{item.phone}</Text>
+          </Table.Td>
+        </>
+      )}
+
       <Table.Td>
         <Group gap={0} justify="flex-end">
           <ActionIcon variant="subtle" color="gray">
@@ -104,23 +117,25 @@ export function UsersTable({ users }: { users: User[] }) {
         </Group>
       </Table.Td>
     </Table.Tr>
-  );
+  ));
 
   return (
-    <Table.ScrollContainer minWidth={800}>
+    <Table.ScrollContainer minWidth={isMobile ? 400 : 800}>
       <Table verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Employee</Table.Th>
-            <Table.Th>Ege</Table.Th>
-            <Table.Th>Email</Table.Th>
-            <Table.Th>Phone</Table.Th>
+            {!isMobile && (
+              <>
+                <Table.Th>Age</Table.Th>
+                <Table.Th>Email</Table.Th>
+                <Table.Th>Phone</Table.Th>
+              </>
+            )}
             <Table.Th />
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>
-          {rows}
-        </Table.Tbody>
+        <Table.Tbody>{rows}</Table.Tbody>
       </Table>
     </Table.ScrollContainer>
   );
