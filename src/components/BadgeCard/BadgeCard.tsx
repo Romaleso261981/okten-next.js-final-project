@@ -17,8 +17,6 @@ type BadgeCardProps = {
 };
 
 export function BadgeCard({ recipe }: BadgeCardProps) {
-  console.log(recipe);
-
   const features = recipe.ingredients.map((ingredient, index) =>
     <Badge variant="light" key={index} size="sm">
       {ingredient}
@@ -30,7 +28,7 @@ export function BadgeCard({ recipe }: BadgeCardProps) {
       withBorder
       radius="md"
       className={classes.card}
-      style={{ display: "flex", flexDirection: "column", height: "100%" }}
+      style={{ display: "flex", flexDirection: "column", height: "750px" }}
     >
       <Flex direction="column">
         <Card.Section>
@@ -46,7 +44,7 @@ export function BadgeCard({ recipe }: BadgeCardProps) {
           </Badge>
         </Flex>
       </Flex>
-      <Flex direction={"column"}>
+      <Flex direction={"column"} h={"100%"} justify={"space-between"}>
         <Flex direction={"column"}>
           <Text mt="md" className={classes.label} c="dimmed">
             Ingredients:
