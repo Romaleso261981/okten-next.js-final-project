@@ -1,3 +1,5 @@
+"use client";
+
 import { IconPencil, IconTrash } from "@tabler/icons-react";
 import {
   ActionIcon,

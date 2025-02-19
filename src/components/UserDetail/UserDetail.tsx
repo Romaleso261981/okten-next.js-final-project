@@ -2,13 +2,14 @@ import { IconAt, IconPhoneCall } from "@tabler/icons-react";
 import { Avatar, Flex, Group, Text } from "@mantine/core";
 import classes from "./UserInfoIcons.module.css";
 import { User } from "@/utils/types";
+import BackButton from "../BackButton/BackButton";
 
 export function UserDetail({ user }: { user: User }) {
   console.log(user);
 
   return (
-    <Flex>
-      <button onClick={() => window.history.back()}>Back</button>
+    <Flex direction={"column"}>
+      <BackButton />
       <Flex w={"100%"} direction="column" align="center">
         <Flex direction="column" wrap="nowrap">
           <Avatar src={user.image} size={"50%"} radius="md" />
