@@ -1,8 +1,10 @@
 "use client";
 
 import { UserContext } from "@/contexts/userContext";
+import { Container } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect } from "react";
+import { EmailBanner } from "../EmailBanner/EmailBanner";
 
 export default function HomePage() {
   const router = useRouter();
@@ -16,5 +18,9 @@ export default function HomePage() {
     },
     [user, router]
   );
-  return <div>HomePage</div>;
+  return (
+    <Container>
+      <EmailBanner />
+    </Container>
+  );
 }
