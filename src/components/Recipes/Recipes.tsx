@@ -29,7 +29,6 @@ const Recipes: FC<Props> = ({ recipes }) => {
   return (
     <Container>
       <section className={s.wrapper}>
-        {/* {limitedTegs.length > 0 && <TegsComponent tegs={limitedTegs} />} */}
         <h1 className={s.title}>Trending now</h1>
         {recipes.length > 0 && <RecipeList recipes={recipes} />}
       </section>

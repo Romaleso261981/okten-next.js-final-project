@@ -17,7 +17,7 @@ const Page: FC = () => {
       const fetchUsers = async () => {
         try {
           const res = await fetch(
-            `https://okten-next-js-final-project.vercel.app/api/users?limit=${LIMIT}&skip=${activePage *
+            `http://localhost:3000/api/users?limit=${LIMIT}&skip=${activePage *
               10}`
           );
           if (!res.ok) throw new Error("Failed to fetch users");
