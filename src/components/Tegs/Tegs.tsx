@@ -13,7 +13,7 @@ export const TegsComponent: FC<TegsProps> = ({ tegs }) => {
   const searchParams = useSearchParams();
 
   const handleCategory = (teg: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams || "");
     params.set("teg", teg);
     return `/recipes?${params.toString()}`;
   };
