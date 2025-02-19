@@ -5,10 +5,11 @@ import { Center } from "@mantine/core";
 import { User } from "@/utils/types";
 import { Container } from "@/components";
 
-import s from "./users.module.css";
 import { UserContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader/Loader";
+
+import s from "./users.module.css";
 
 type Props = {
   users: User[];
