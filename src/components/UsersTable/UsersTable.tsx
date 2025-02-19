@@ -11,69 +11,22 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { User } from "@/utils/types";
-
-const data = [
-  {
-    avatar:
-      "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png",
-    name: "Robert Wolfkisser",
-    job: "Engineer",
-    email: "rob_wolf@gmail.com",
-    phone: "+44 (452) 886 09 12"
-  },
-  {
-    avatar:
-      "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png",
-    name: "Jill Jailbreaker",
-    job: "Engineer",
-    email: "jj@breaker.com",
-    phone: "+44 (934) 777 12 76"
-  },
-  {
-    avatar:
-      "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png",
-    name: "Henry Silkeater",
-    job: "Designer",
-    email: "henry@silkeater.io",
-    phone: "+44 (901) 384 88 34"
-  },
-  {
-    avatar:
-      "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png",
-    name: "Bill Horsefighter",
-    job: "Designer",
-    email: "bhorsefighter@gmail.com",
-    phone: "+44 (667) 341 45 22"
-  },
-  {
-    avatar:
-      "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-10.png",
-    name: "Jeremy Footviewer",
-    job: "Manager",
-    email: "jeremy@foot.dev",
-    phone: "+44 (881) 245 65 65"
-  }
-];
-
-function getRandomNumber(): number {
-  return Math.floor(Math.random() * 5);
-}
-
-const jobColors: Record<string, string> = {
-  engineer: "blue",
-  manager: "cyan",
-  designer: "pink"
-};
+import { useRouter } from "next/navigation";
 
 export function UsersTable({ users }: { users: User[] }) {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+  const router = useRouter();
+
+  const handleUserClick = (id: number | undefined) => {
+    router.push(`/users/${id?.toString()}`);
+  };
 
   const rows = users.map(item => (
     <Table.Tr key={item.id}>
-      <Table.Td>
+      <Table.Td style={{cursor: "pointer"}} onClick={() => handleUserClick(item.id)}>
         <Group gap="sm">
-          <Avatar size={30} src={data[getRandomNumber()].avatar} radius={30} />
+          <Avatar size={30} src={item.image} radius={30} />
           <div>
             <Text fz="sm" fw={500}>
               {item.firstName} {item.lastName}
@@ -91,8 +44,8 @@ export function UsersTable({ users }: { users: User[] }) {
       {!isMobile && (
         <>
           <Table.Td>
-            <Badge color={jobColors[data[0].job.toLowerCase()]} variant="light">
-              {item.age}
+            <Badge  variant="light">
+              {item.age}: year.
             </Badge>
           </Table.Td>
           <Table.Td>
@@ -108,7 +61,10 @@ export function UsersTable({ users }: { users: User[] }) {
 
       <Table.Td>
         <Group gap={0} justify="flex-end">
-          <ActionIcon variant="subtle" color="gray">
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+          >
             <IconPencil size={16} stroke={1.5} />
           </ActionIcon>
           <ActionIcon variant="subtle" color="red">

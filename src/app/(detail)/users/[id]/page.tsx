@@ -1,8 +1,8 @@
-import { Flex, Text, Title } from "@mantine/core";
+import { Container } from "@mantine/core";
 import React from "react";
 
-import s from "./detail.module.css";
 import { User } from "@/utils/types";
+import { UserDetail } from "@/components/UserDetail/UserDetail";
 
 type DetailProps = {
   params: Promise<{
@@ -18,14 +18,8 @@ export default async function Page({ params }: DetailProps) {
   ).then(res => res.json());
 
   return (
-    <div className={s.detailContainer}>
-      <Flex className={s.description}>
-        <Title>
-          {user.firstName} {user.lastName}
-        </Title>
-        <Text>{`Age: ${user.age}`}</Text>
-        <Text>{`birthDate: ${user.birthDate}`}</Text>
-      </Flex>
-    </div>
+    <Container>
+      <UserDetail user={user} />
+    </Container>
   );
 }
