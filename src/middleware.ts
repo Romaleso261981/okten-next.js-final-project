@@ -1,27 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+export async function middleware(req: NextRequest) {
+  const token = req.cookies.get('authToken');
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+  if (token) return NextResponse.next();
+  console.log('Adding token to request headers');
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set('Authorization', `Bearer ${token}`);
 
-  // Clone the request and add the token to the headers
-  const modifiedHeaders = new Headers(req.headers);
-  modifiedHeaders.set("Authorization", `Bearer ${token}`);
-
-  const modifiedReq = new Request(req.url, {
-    ...req,
-    headers: modifiedHeaders,
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
   });
 
-  return NextResponse.next({
-    request: modifiedReq,
-  });
+  return response;
 }
-
-// Вказуємо, які шляхи мають бути захищені
-export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/api/protected-route"], // Додай свої приватні маршрути
-};

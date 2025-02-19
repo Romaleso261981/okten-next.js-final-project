@@ -5,9 +5,6 @@ import s from "./login.module.css";
 import { UserContext } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 
-import Cookies from "js-cookie";
-import { ShortUser } from "@/utils/types";
-
 export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -31,14 +28,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("data", data);
-
-        const newUser: ShortUser = {
-          lastName: data.lastName,
-          firstName: data.firstName
-        };
-        Cookies.set("authToken", data.accessToken, { expires: 7 });
-        login(newUser);
+        login(data);
         router.push("/");
       } else {
         console.error("Помилка реєстрації");

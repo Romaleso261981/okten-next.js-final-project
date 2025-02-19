@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Group, Title } from "@mantine/core";
+import { Flex, Title } from "@mantine/core";
 
 import s from "./Header.module.css";
 import Link from "next/link";
@@ -29,9 +29,9 @@ export const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.inner}>
-        <Group>
+        <Link href="/">
           <Title>Dummyjson.com</Title>
-        </Group>
+        </Link>
         {user &&
           <nav className={s.navigation}>
             {items}

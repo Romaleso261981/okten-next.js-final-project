@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 6rem;
+  padding: 16px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,4 +10,10 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    padding: 5px;
+  }
 }

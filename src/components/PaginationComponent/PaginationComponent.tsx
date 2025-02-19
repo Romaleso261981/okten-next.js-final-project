@@ -1,19 +1,59 @@
-import { Pagination } from "@mantine/core";
+// import { Pagination } from "@mantine/core";
 
-type Props = {
+// type Props = {
+//   total: number;
+//   setSkip: (skip: number) => void;
+//   limit: number;
+// };
+
+// const PaginationComponent = ({ total, setSkip, limit }: Props) => {
+//   const totalPages = Math.ceil(total / limit);
+
+//   const handlePageChange = (page: number) => {
+//     setSkip((page - 1) * limit);
+//   };
+
+//   return <Pagination total={totalPages} onChange={handlePageChange} />;
+// };
+
+// export default PaginationComponent;
+
+"use client";
+
+import { useRouter } from "next/navigation";
+
+interface PaginationProps {
   total: number;
-  setSkip: (skip: number) => void;
   limit: number;
-};
+  skip: number;
+}
 
-const PaginationComponent = ({ total, setSkip, limit }: Props) => {
-  const totalPages = Math.ceil(total / limit);
+export default function Pagination({ total, limit, skip }: PaginationProps) {
+  const router = useRouter();
 
-  const handlePageChange = (page: number) => {
-    setSkip((page - 1) * limit);
+  const handlePageChange = (newSkip: number) => {
+    const newSearchParams = new URLSearchParams(window.location.search);
+    newSearchParams.set("skip", newSkip.toString());
+    newSearchParams.set("limit", limit.toString());
+
+    router.push(`/users?${newSearchParams.toString()}`);
   };
 
-  return <Pagination total={totalPages} onChange={handlePageChange} />;
-};
+  const fethToServer = async () => {
+    await fetch(`http://localhost:3000/users/api`);
+  };
 
-export default PaginationComponent;
+  return (
+    <div>
+      <button onClick={fethToServer} disabled={skip === 0}>
+        Previous
+      </button>
+      <button
+        onClick={() => handlePageChange(skip + limit)}
+        disabled={skip + limit >= total}
+      >
+        Next
+      </button>
+    </div>
+  );
+}

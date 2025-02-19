@@ -17,7 +17,7 @@
 .item {
   list-style: none;
   border-radius: 5px;
-  min-height: 400px;
+  min-height: 100px;
   padding: 5px;
   box-shadow: 0 5px 10px 0 light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
 }

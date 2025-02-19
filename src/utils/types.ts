@@ -109,4 +109,11 @@ export type User = {
   weight: number;
 };
 
+export type LoginResponse = {
+  accessToken: string;
+  refreshToken: string;
+  lastName: string;
+  firstName: string;
+};
+
 export type ShortUser = Pick<User, "lastName" | "firstName">;

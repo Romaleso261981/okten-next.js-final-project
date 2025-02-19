@@ -1,12 +1,22 @@
 "use client";
 
-import { ShortUser } from "@/utils/types";
+import { LoginResponse, ShortUser } from "@/utils/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
+
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 type UserContextType = {
   user: ShortUser | null;
   isLoggedIn: boolean;
-  login: (user: ShortUser) => Promise<boolean>;
+  login: (
+    data: {
+      accessToken: string;
+      refreshToken: string;
+      lastName: string;
+      firstName: string;
+    }
+  ) => Promise<boolean>;
   setIsLoggedIn: (value: boolean) => void;
   setUser: (value: ShortUser) => void;
   logout: () => void;
@@ -55,14 +65,20 @@ export const UserContext = createContext({} as UserContextType);
 
 export function UserProvider({ children }: CardsProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<ShortUser | null>({} as ShortUser);
+  const [user, setUser] = useState<ShortUser | null>(null);
 
-  const login = async (user: ShortUser) => {
+  const login = async (data: LoginResponse) => {
     try {
-      if (user) {
-        saveToLocalStorage("user", user);
+      if (data) {
+        const newUser = {
+          lastName: data.lastName,
+          firstName: data.firstName
+        };
+        saveToLocalStorage("user", newUser);
+        Cookies.set("authToken", data.accessToken, { expires: 7 });
+        Cookies.set("refreshToken", data.refreshToken, { expires: 7 });
         setIsLoggedIn(true);
-        setUser(user);
+        setUser(newUser);
         return true;
       } else {
         console.error("Помилка реєстрації");
@@ -74,10 +90,15 @@ export function UserProvider({ children }: CardsProviderProps) {
     }
   };
 
+  const router = useRouter();
+
   const logout = () => {
     setUser(null);
     setIsLoggedIn(false);
     removeFromLocalStorage("user");
+    Cookies.remove("authToken");
+    Cookies.remove("refreshToken");
+    router.push("/login");
   };
 
   useEffect(() => {
