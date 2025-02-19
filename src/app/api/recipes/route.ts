@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/constans/constans";
+import { BASE_URL_DAMMYJSON } from "@/constans/constans";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -7,9 +7,12 @@ export async function GET(req: Request) {
   const skip = parseInt(searchParams.get("skip") || "0", 10);
 
   try {
-    const res = await fetch(`${BASE_URL}/recipes?limit=${limit}&skip=${skip}`, {
-      cache: "no-store"
-    });
+    const res = await fetch(
+      `${BASE_URL_DAMMYJSON}/recipes?limit=${limit}&skip=${skip}`,
+      {
+        cache: "no-store"
+      }
+    );
     const data = await res.json();
 
     return NextResponse.json(

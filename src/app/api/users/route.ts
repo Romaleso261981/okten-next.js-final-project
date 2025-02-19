@@ -1,3 +1,4 @@
+import { BASE_URL_DAMMYJSON } from "@/constans/constans";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -7,7 +8,7 @@ export async function GET(req: Request) {
 
   try {
     const res = await fetch(
-      `https://dummyjson.com/users?limit=${limit}&skip=${skip}`,
+      `${BASE_URL_DAMMYJSON}/users?limit=${limit}&skip=${skip}`,
       {
         cache: "no-store"
       }
