@@ -11,24 +11,36 @@ import {
 } from "@mantine/core";
 import classes from "./BadgeCard.module.css";
 import { Recipe } from "@/utils/types";
+import { useRouter } from "next/navigation";
 
 type BadgeCardProps = {
   recipe: Recipe;
 };
 
 export function BadgeCard({ recipe }: BadgeCardProps) {
+  const router = useRouter();
   const features = recipe.ingredients.map((ingredient, index) =>
     <Badge variant="light" key={index} size="sm">
       {ingredient}
     </Badge>
   );
 
+  const handleCardClick = () => {
+    router.push(`/recipe/${recipe.id}`);
+  };
+
   return (
     <Card
       withBorder
       radius="md"
       className={classes.card}
-      style={{ display: "flex", flexDirection: "column", height: "750px" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "750px",
+        cursor: "pointer"
+      }}
+      onClick={handleCardClick}
     >
       <Flex direction="column">
         <Card.Section>
