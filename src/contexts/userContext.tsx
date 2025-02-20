@@ -3,8 +3,8 @@
 import { LoginResponse, ShortUser } from "@/utils/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 type UserContextType = {
   user: ShortUser | null;
@@ -75,8 +75,8 @@ export function UserProvider({ children }: CardsProviderProps) {
           firstName: data.firstName
         };
         saveToLocalStorage("user", newUser);
-        Cookies.set("authToken", data.accessToken, { expires: 7 });
-        Cookies.set("refreshToken", data.refreshToken, { expires: 7 });
+        localStorage.setItem("refreshToken", data.refreshToken);
+        Cookies.set("accessToken", data.accessToken);
         setIsLoggedIn(true);
         setUser(newUser);
         return true;
@@ -96,8 +96,8 @@ export function UserProvider({ children }: CardsProviderProps) {
     setUser(null);
     setIsLoggedIn(false);
     removeFromLocalStorage("user");
-    Cookies.remove("authToken");
-    Cookies.remove("refreshToken");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     router.push("/login");
   };
 
