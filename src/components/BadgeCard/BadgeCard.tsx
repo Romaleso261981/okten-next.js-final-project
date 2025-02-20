@@ -1,3 +1,5 @@
+"use client";
+
 import { IconHeart } from "@tabler/icons-react";
 import {
   ActionIcon,
