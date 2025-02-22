@@ -5,16 +5,17 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const limit = parseInt(searchParams.get("limit") || "10", 10);
   const skip = parseInt(searchParams.get("skip") || "0", 10);
+  const q = searchParams.get("q") || "";
 
   const cookies = req.headers.get("cookie");
-  const accessToken = cookies?.split("; ")
-    .find(row => row.startsWith("accessToken="))?.split("=")[1];
+  const accessToken = cookies?.split("; ")?.find(row => row.startsWith("accessToken="))?.split("=")[1];
 
-  if (!accessToken) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  if (!accessToken)
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
   try {
     const res = await fetch(
-      `${BASE_URL_DAMMYJSON}/auth/users?limit=${limit}&skip=${skip}`,
+      `${BASE_URL_DAMMYJSON}/auth/users?q=${q}&limit=${limit}&skip=${skip}`,
       {
         cache: "no-store",
         headers: {

@@ -7,3 +7,4 @@ export * from "./ImageContainer/ImageContainer";
 export * from "./UserInfo/UserInfo";
 export * from "./Recipes/Recipes";
 export * from "./Loader/Loader";
+export * from "./SearchBar/SearchBar";

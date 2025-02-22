@@ -5,6 +5,7 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import { Header } from "@/components/Header/Header";
 import { Metadata } from "next";
 import { UserProvider } from "@/contexts/userContext";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 const theme = createTheme(
   {
@@ -28,6 +29,7 @@ export default function RootLayout({
         <UserProvider>
           <MantineProvider theme={theme}>
             <Header />
+            <SearchBar />
             {children}
           </MantineProvider>
         </UserProvider>
