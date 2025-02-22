@@ -24,8 +24,6 @@ export async function GET(req: Request) {
     );
     const data = await res.json();
 
-    console.log("data", data);
-
     return NextResponse.json(
       { recipes: data.recipes, total: data.total },
       { status: 200 }

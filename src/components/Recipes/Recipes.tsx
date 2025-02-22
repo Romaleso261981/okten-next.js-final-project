@@ -1,9 +1,7 @@
 "use client";
 
-import React, { FC, useContext, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { FC } from "react";
 import { Container, RecipeList } from "@/components";
-import { UserContext } from "@/contexts/userContext";
 
 import s from "./recipes.module.css";
 import Loader from "../Loader/Loader";
@@ -12,18 +10,6 @@ import { RecipeDetails } from "@/utils/types";
 type Props = { recipes: RecipeDetails[] };
 
 const Recipes: FC<Props> = ({ recipes }) => {
-  const router = useRouter();
-  const { user } = useContext(UserContext);
-
-  useEffect(
-    () => {
-      if (user === null) {
-        router.push("/login");
-      }
-    },
-    [user, router]
-  );
-
   if (!recipes.length) return <Loader />;
 
   return (

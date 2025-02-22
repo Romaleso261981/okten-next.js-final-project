@@ -14,8 +14,6 @@ const Page = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const data = await getRecipes(params);
 
-  console.log(data);
-
   if (!data.recipes) return <Loader />;
 
   return (

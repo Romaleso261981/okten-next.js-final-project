@@ -5,8 +5,6 @@ import { User } from "@/utils/types";
 import BackButton from "../BackButton/BackButton";
 
 export function UserDetail({ user }: { user: User }) {
-  console.log(user);
-
   return (
     <Flex direction={"column"}>
       <BackButton />

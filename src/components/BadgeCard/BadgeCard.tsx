@@ -42,7 +42,6 @@ export function BadgeCard({ recipe }: BadgeCardProps) {
         height: "750px",
         cursor: "pointer"
       }}
-      onClick={handleCardClick}
     >
       <Flex direction="column">
         <Card.Section>
@@ -68,7 +67,7 @@ export function BadgeCard({ recipe }: BadgeCardProps) {
           </Group>
         </Flex>
         <Group mt="xs" style={{ marginTop: "auto" }}>
-          <Button radius="md" style={{ flex: 1 }}>
+          <Button radius="md" style={{ flex: 1 }} onClick={handleCardClick}>
             Show details
           </Button>
           <ActionIcon variant="default" radius="md" size={36}>
