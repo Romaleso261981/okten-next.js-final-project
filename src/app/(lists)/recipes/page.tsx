@@ -20,7 +20,7 @@ const Page = async ({ searchParams }: Props) => {
     <Container pt={20} pb={80}>
       <Recipes recipes={data.recipes} />
       <Center mt={20}>
-        <PaginationComponent total={data.total / 10} />
+        <PaginationComponent total={data.total} />
       </Center>
     </Container>
   );
