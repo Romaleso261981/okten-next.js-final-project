@@ -1,4 +1,5 @@
 import { BASE_URL_DAMMYJSON } from "@/constans/constans";
+import { cookies } from "next/headers";
 
 export interface IRecipesParams {
   q?: string | null;
@@ -9,13 +10,23 @@ export interface IRecipesParams {
 export default async function getRecipes(params: IRecipesParams) {
   try {
     const { q = "", limit = 10, skip = 0 } = params;
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      throw new Error("Access token not found");
+    }
 
     const res = await fetch(
-      `${BASE_URL_DAMMYJSON}/recipes/search?q=${q}&limit=${limit}&skip=${skip}`,
+      `${BASE_URL_DAMMYJSON}/auth/recipes/search?q=${q}&limit=${limit}&skip=${skip}`,
       {
-        cache: "no-store"
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
       }
     );
+
     const data = await res.json();
 
     return data;

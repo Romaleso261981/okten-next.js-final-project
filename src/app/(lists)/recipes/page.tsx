@@ -14,7 +14,9 @@ const Page = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const data = await getRecipes(params);
 
-  if (!data.recipes) return <Loader />;
+  const message = data.message ? data.message : "No recipes found";
+
+  if (!data.recipes) return <Loader message={message} />;
 
   return (
     <Container pt={20} pb={80}>
