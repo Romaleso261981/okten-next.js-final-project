@@ -15,7 +15,7 @@ const Page = async ({ searchParams }: Props) => {
 
   const message = data.message ? data.message : "No users found";
 
-  if (!data.recipes) return <Loader message={message} />;
+  if (data.recipes < 0) return <Loader message={message} />;
 
   return (
     <Container pt={20} pb={80}>

@@ -32,9 +32,10 @@ export default async function DetailLayout({
         <Image
           src={src}
           width={1800}
-          height={550}
+          height={1800}
+          priority
           alt="Backdrop"
-          objectFit="cover"
+          style={{ objectFit: "cover" }}
         />
       </ImageContainer>
       <div>

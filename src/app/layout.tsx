@@ -6,12 +6,11 @@ import { Header } from "@/components/Header/Header";
 import { Metadata } from "next";
 import { UserProvider } from "@/contexts/userContext";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import { RecipesProvider } from "@/contexts/recipesContext";
 
-const theme = createTheme(
-  {
-    /** Put your mantine theme override here */
-  }
-);
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,11 +26,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <UserProvider>
-          <MantineProvider theme={theme}>
-            <Header />
-            <SearchBar />
-            {children}
-          </MantineProvider>
+          <RecipesProvider>
+            <MantineProvider theme={theme}>
+              <Header />
+              <SearchBar />
+              {children}
+            </MantineProvider>
+          </RecipesProvider>
         </UserProvider>
       </body>
     </html>

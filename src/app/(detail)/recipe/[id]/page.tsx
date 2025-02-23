@@ -33,6 +33,8 @@ export default async function Page({ params }: DetailProps) {
           height={450}
           alt={recipe.name}
           className={s.poster}
+          priority
+          style={{ width: "auto", height: "auto" }}
         />
       </Flex>
       <Flex className={s.description}>
