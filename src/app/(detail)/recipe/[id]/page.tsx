@@ -18,11 +18,9 @@ export default async function Page({ params }: DetailProps) {
 
   const recipe: RecipeDetails = await fetch(
     "https://dummyjson.com/recipes/" + id
-  ).then(res => res.json());
+  ).then((res) => res.json());
 
-  const tegs = await fetch("https://dummyjson.com/recipes/tags").then(res =>
-    res.json()
-  );
+  console.log("recipe", recipe);
 
   return (
     <div className={s.detailContainer}>
@@ -38,16 +36,32 @@ export default async function Page({ params }: DetailProps) {
         />
       </Flex>
       <Flex className={s.description}>
-        <Title>
-          {recipe.name}
-        </Title>
+        <Title>{recipe.name}</Title>
         <Text>{`Status: ${recipe.rating}`}</Text>
         <Group>
           <StarsRatingComponent reating={recipe.rating} />
         </Group>
         <Suspense fallback={<div>Loading...</div>}>
-          <TegsComponent tegs={tegs.slice(0, 5)} />
+          <TegsComponent tegs={recipe.tags} />
         </Suspense>
+      </Flex>
+      <Flex className="flex flex-row justify-around">
+        <Flex className="flex flex-col">
+          <Title>ingredients</Title>
+          <ul>
+            {recipe.ingredients.map((instruction, i) => (
+              <li key={i}>{instruction}</li>
+            ))}
+          </ul>
+        </Flex>
+        <Flex className="flex flex-col">
+          <Title>Instructions</Title>
+          <ul>
+            {recipe.instructions.map((instruction, i) => (
+              <li key={i}>{instruction}</li>
+            ))}
+          </ul>
+        </Flex>
       </Flex>
     </div>
   );
