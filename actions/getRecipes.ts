@@ -18,7 +18,7 @@ export default async function getRecipes(params: IRecipesParams) {
     let data = {} as RecipesResponse & { message: string };
 
     if (teg !== "") {
-      const res = await fetch(`${BASE_URL_DAMMYJSON}/recipes/tag/${teg}`, {
+      const res = await fetch(`${BASE_URL_DAMMYJSON}/auth/recipes/tag/${teg}`, {
         cache: "no-store",
         headers: {
           Authorization: `Bearer ${accessToken}`

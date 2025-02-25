@@ -14,6 +14,7 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { User } from "@/utils/types";
 import { useRouter } from "next/navigation";
+import Loader from "../Loader/Loader";
 
 export function UsersTable({ users }: { users: User[] }) {
   const theme = useMantineTheme();
@@ -24,9 +25,16 @@ export function UsersTable({ users }: { users: User[] }) {
     router.push(`/users/${id?.toString()}`);
   };
 
-  const rows = users.map(item => (
+  console.log("users", users);
+
+  if (!users) return <Loader />;
+
+  const rows = users.map((item) => (
     <Table.Tr key={item.id}>
-      <Table.Td style={{cursor: "pointer"}} onClick={() => handleUserClick(item.id)}>
+      <Table.Td
+        style={{ cursor: "pointer" }}
+        onClick={() => handleUserClick(item.id)}
+      >
         <Group gap="sm">
           <Avatar size={30} src={item.image} radius={30} />
           <div>
@@ -46,9 +54,7 @@ export function UsersTable({ users }: { users: User[] }) {
       {!isMobile && (
         <>
           <Table.Td>
-            <Badge  variant="light">
-              {item.age}: year.
-            </Badge>
+            <Badge variant="light">{item.age}: year.</Badge>
           </Table.Td>
           <Table.Td>
             <Anchor component="button" size="sm">
@@ -63,10 +69,7 @@ export function UsersTable({ users }: { users: User[] }) {
 
       <Table.Td>
         <Group gap={0} justify="flex-end">
-          <ActionIcon
-            variant="subtle"
-            color="gray"
-          >
+          <ActionIcon variant="subtle" color="gray">
             <IconPencil size={16} stroke={1.5} />
           </ActionIcon>
           <ActionIcon variant="subtle" color="red">

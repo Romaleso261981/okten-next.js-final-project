@@ -20,8 +20,6 @@ export default async function Page({ params }: DetailProps) {
     "https://dummyjson.com/recipes/" + id
   ).then((res) => res.json());
 
-  console.log("recipe", recipe);
-
   return (
     <div className={s.detailContainer}>
       <Flex className={s.posterWrapper}>
@@ -37,7 +35,7 @@ export default async function Page({ params }: DetailProps) {
       </Flex>
       <Flex className={s.description}>
         <Title>{recipe.name}</Title>
-        <Text>{`Status: ${recipe.rating}`}</Text>
+        <Text>{`Rating: ${recipe.rating}`}</Text>
         <Group>
           <StarsRatingComponent reating={recipe.rating} />
         </Group>
@@ -45,8 +43,8 @@ export default async function Page({ params }: DetailProps) {
           <TegsComponent tegs={recipe.tags} />
         </Suspense>
       </Flex>
-      <Flex className="flex flex-row justify-around">
-        <Flex className="flex flex-col">
+      <Flex className="flex flex-col pb-9 md:flex-row ">
+        <Flex className="flex flex-col px-6">
           <Title>ingredients</Title>
           <ul>
             {recipe.ingredients.map((instruction, i) => (
@@ -54,7 +52,7 @@ export default async function Page({ params }: DetailProps) {
             ))}
           </ul>
         </Flex>
-        <Flex className="flex flex-col">
+        <Flex className="flex flex-col px-6">
           <Title>Instructions</Title>
           <ul>
             {recipe.instructions.map((instruction, i) => (
