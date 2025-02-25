@@ -1,13 +1,13 @@
 "use client";
 
-import { UserRespons, ShortUser } from "@/utils/types";
+import { UserRespons } from "@/utils/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 type UserContextType = {
-  user: ShortUser | null;
+  user: UserRespons | null;
   isLoggedIn: boolean;
   login: (data: UserRespons) => Promise<boolean>;
   setIsLoggedIn: (value: boolean) => void;
