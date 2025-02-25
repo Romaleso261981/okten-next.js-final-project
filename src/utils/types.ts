@@ -109,9 +109,14 @@ export type User = {
   weight: number;
 };
 
-export type LoginResponse = {
+export type UserRespons = {
   accessToken: string;
   refreshToken: string;
+  email: string;
+  gender: string;
+  image: string;
+  username: string;
+  id: number;
   lastName: string;
   firstName: string;
 };

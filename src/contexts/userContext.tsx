@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginResponse, ShortUser } from "@/utils/types";
+import { UserRespons, ShortUser } from "@/utils/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
@@ -9,16 +9,9 @@ import Cookies from "js-cookie";
 type UserContextType = {
   user: ShortUser | null;
   isLoggedIn: boolean;
-  login: (
-    data: {
-      accessToken: string;
-      refreshToken: string;
-      lastName: string;
-      firstName: string;
-    }
-  ) => Promise<boolean>;
+  login: (data: UserRespons) => Promise<boolean>;
   setIsLoggedIn: (value: boolean) => void;
-  setUser: (value: ShortUser) => void;
+  setUser: (value: UserRespons) => void;
   logout: () => void;
 };
 
@@ -65,20 +58,16 @@ export const UserContext = createContext({} as UserContextType);
 
 export function UserProvider({ children }: CardsProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<ShortUser | null>(null);
+  const [user, setUser] = useState<UserRespons | null>(null);
 
-  const login = async (data: LoginResponse) => {
+  const login = async (data: UserRespons) => {
     try {
       if (data) {
-        const newUser = {
-          lastName: data.lastName,
-          firstName: data.firstName
-        };
-        saveToLocalStorage("user", newUser);
-        localStorage.setItem("refreshToken", data.refreshToken);
+        saveToLocalStorage("user", data);
         Cookies.set("accessToken", data.accessToken);
+        Cookies.set("refreshToken", data.refreshToken);
         setIsLoggedIn(true);
-        setUser(newUser);
+        setUser(data);
         return true;
       } else {
         console.error("Помилка реєстрації");
@@ -102,7 +91,7 @@ export function UserProvider({ children }: CardsProviderProps) {
   };
 
   useEffect(() => {
-    const storedUser = loadFromLocalStorage<ShortUser>("user");
+    const storedUser = loadFromLocalStorage<UserRespons>("user");
     if (storedUser) {
       setUser(storedUser);
       setIsLoggedIn(true);

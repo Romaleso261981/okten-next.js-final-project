@@ -1,11 +1,10 @@
-"use client";
-
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 import { Container, RecipeList } from "@/components";
 
 import s from "./recipes.module.css";
 import Loader from "../Loader/Loader";
 import { RecipeDetails } from "@/utils/types";
+import RecipesListTitle from "../RecipesListTitle/RecipesListTitle";
 
 type Props = { recipes: RecipeDetails[] };
 
@@ -15,7 +14,9 @@ const Recipes: FC<Props> = ({ recipes }) => {
   return (
     <Container>
       <section className={s.wrapper}>
-        <h1 className={s.title}>Trending now</h1>
+        <Suspense fallback={<h3>Loading.....</h3>}>
+          <RecipesListTitle />
+        </Suspense>
         {recipes.length > 0 && <RecipeList recipes={recipes} />}
       </section>
     </Container>

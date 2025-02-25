@@ -25,8 +25,6 @@ export function UsersTable({ users }: { users: User[] }) {
     router.push(`/users/${id?.toString()}`);
   };
 
-  console.log("users", users);
-
   if (!users) return <Loader />;
 
   const rows = users.map((item) => (

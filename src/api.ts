@@ -48,7 +48,6 @@ API.interceptors.response.use(
       if (refreshToken && !refreshToken.includes("undefined")) {
         refreshTokenPair(refreshToken.split("=")[1]);
       }
-      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
